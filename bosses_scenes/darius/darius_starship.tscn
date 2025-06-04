@@ -1,0 +1,113 @@
+[gd_scene load_steps=8 format=3 uid="uid://ck8gme4wyhnx3"]
+
+[ext_resource type="Texture2D" uid="uid://blyxgd7l3ww0i" path="res://assets/beta/sprites/bosses/darius/darius starship/lazer_sprite_1.png" id="1_67i1o"]
+[ext_resource type="Texture2D" uid="uid://b8kan1yurwmgo" path="res://assets/beta/sprites/bosses/darius/darius starship/behind-kamize-launchers_sprite_1.png" id="2_723tv"]
+[ext_resource type="Texture2D" uid="uid://dort4ui7psenc" path="res://assets/beta/sprites/bosses/darius/darius starship/kamize-launcher-1_sprite_1.png" id="3_dn7i0"]
+[ext_resource type="Texture2D" uid="uid://hcdjk4joqvss" path="res://assets/beta/sprites/bosses/darius/darius starship/kamize-launcher-2_sprite_1.png" id="4_qv6fp"]
+[ext_resource type="Texture2D" uid="uid://5fs8qry2v0j3" path="res://assets/beta/sprites/bosses/darius/darius starship/base_sprite_1.png" id="5_mab8u"]
+[ext_resource type="Texture2D" uid="uid://dmx8ggb3haek" path="res://assets/beta/sprites/bosses/darius/darius starship/lazer2_sprite_1.png" id="6_mlnnc"]
+[ext_resource type="Texture2D" uid="uid://cv4kgtc0ti046" path="res://assets/beta/sprites/bosses/darius/darius starship/rocket laucher_sprite_1.png" id="7_35jll"]
+
+[node name="darius_starship" type="Node2D"]
+
+[node name="lazer_behind" type="Node2D" parent="."]
+
+[node name="LazerSprite1" type="Sprite2D" parent="lazer_behind"]
+position = Vector2(-77, 9)
+texture = ExtResource("1_67i1o")
+region_enabled = true
+region_rect = Rect2(12, 35, 14, 38)
+
+[node name="LazerSprite2" type="Sprite2D" parent="lazer_behind"]
+position = Vector2(77, 9)
+texture = ExtResource("1_67i1o")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(12, 35, 14, 38)
+
+[node name="Behind-kamize-launchersSprite1" type="Sprite2D" parent="."]
+texture = ExtResource("2_723tv")
+
+[node name="kamize_launchers" type="Node2D" parent="."]
+
+[node name="Kamize-launcher-1Sprite1" type="Sprite2D" parent="kamize_launchers"]
+position = Vector2(-61.5, -19.5)
+texture = ExtResource("3_dn7i0")
+region_enabled = true
+region_rect = Rect2(8, 11, 53, 31)
+
+[node name="Kamize-launcher-2Sprite1" type="Sprite2D" parent="kamize_launchers"]
+position = Vector2(61.5, -19.5)
+texture = ExtResource("4_qv6fp")
+region_enabled = true
+region_rect = Rect2(131, 11, 53, 31)
+
+[node name="BaseSprite1" type="Sprite2D" parent="."]
+texture = ExtResource("5_mab8u")
+
+[node name="lazer_top" type="Node2D" parent="."]
+
+[node name="Lazer2Sprite1" type="Sprite2D" parent="lazer_top"]
+position = Vector2(0, -36.5)
+texture = ExtResource("6_mlnnc")
+region_enabled = true
+region_rect = Rect2(85, 2, 22, 16)
+
+[node name="rocket_launchers" type="Node2D" parent="."]
+
+[node name="left" type="Node2D" parent="rocket_launchers"]
+
+[node name="RocketLaucherSprite1" type="Sprite2D" parent="rocket_launchers/left"]
+position = Vector2(-35, 11)
+texture = ExtResource("7_35jll")
+region_enabled = true
+region_rect = Rect2(56, 50, 11, 13)
+
+[node name="RocketLaucherSprite2" type="Sprite2D" parent="rocket_launchers/left"]
+position = Vector2(-46, 8)
+texture = ExtResource("7_35jll")
+region_enabled = true
+region_rect = Rect2(56, 50, 11, 13)
+
+[node name="RocketLaucherSprite3" type="Sprite2D" parent="rocket_launchers/left"]
+position = Vector2(-35, 28)
+texture = ExtResource("7_35jll")
+region_enabled = true
+region_rect = Rect2(56, 50, 11, 13)
+
+[node name="RocketLaucherSprite4" type="Sprite2D" parent="rocket_launchers/left"]
+position = Vector2(-46, 22)
+texture = ExtResource("7_35jll")
+region_enabled = true
+region_rect = Rect2(56, 50, 11, 13)
+
+[node name="right" type="Node2D" parent="rocket_launchers"]
+position = Vector2(83, 0)
+
+[node name="RocketLaucherSprite1" type="Sprite2D" parent="rocket_launchers/right"]
+position = Vector2(-36, 8)
+texture = ExtResource("7_35jll")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(56, 50, 11, 13)
+
+[node name="RocketLaucherSprite2" type="Sprite2D" parent="rocket_launchers/right"]
+position = Vector2(-48, 11)
+texture = ExtResource("7_35jll")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(56, 50, 11, 13)
+
+[node name="RocketLaucherSprite3" type="Sprite2D" parent="rocket_launchers/right"]
+position = Vector2(-37, 22)
+texture = ExtResource("7_35jll")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(56, 50, 11, 13)
+
+[node name="RocketLaucherSprite4" type="Sprite2D" parent="rocket_launchers/right"]
+position = Vector2(-48, 28)
+texture = ExtResource("7_35jll")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(56, 50, 11, 13)
