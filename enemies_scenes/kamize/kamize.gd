@@ -4,7 +4,7 @@ var tween: Tween
 var _tween3: Tween
 
 @export_category("Status")
-@export var health: int = 8
+@export var health: int = 6
 @export var base_colors: Array[Color]
 @export var launch_point: Vector2
 @export var damage: int = 1
@@ -15,8 +15,6 @@ var _tween3: Tween
 @export var explosion_particle: PackedScene
 @export var damage_area: Area2D
 
-var damage_signal: Signal
-
 func _ready() -> void:
 
 	anim.play("going_slow")
@@ -25,7 +23,7 @@ func _ready() -> void:
 	if launch_point == Vector2(0, 0):
 		launch_point = calculate_launch_point()
 	look_at(launch_point)
-	tween.tween_property(self, "global_position", launch_point, 4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self, "global_position", launch_point, 3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
 	anim.stop()
 	sprite.frame = 0
@@ -107,4 +105,4 @@ func apply_damage() -> void:
 	
 func _on_damage_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("player"):
-		damage_signal.emit(damage)
+		GlobalSignals.emit_signal("player_took_damage", damage)

@@ -1,27 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://k0e1be0j8xio"]
+[gd_scene load_steps=6 format=3 uid="uid://k0e1be0j8xio"]
 
 [ext_resource type="Script" uid="uid://cfdn33w6lyvfa" path="res://player_scenes/starship/bullets/player_bullet.gd" id="1_0ioi8"]
-[ext_resource type="Texture2D" uid="uid://s885rl2c864o" path="res://assets/beta/sprites/bullets/default_bullet.png" id="1_uwkok"]
 [ext_resource type="PackedScene" uid="uid://dtwhe8ex5c484" path="res://player_scenes/starship/bullets/bullet_explosion.tscn" id="2_khs1t"]
+[ext_resource type="Texture2D" uid="uid://dmpeahd5b7y0h" path="res://assets/beta/sprites/bullets/default_bullet2.png" id="3_khs1t"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0ioi8"]
 radius = 1.0
 height = 5.0
 
+[sub_resource type="Environment" id="Environment_ordn5"]
+background_mode = 3
+background_energy_multiplier = 0.0
+reflected_light_source = 2
+glow_enabled = true
+glow_intensity = 0.44
+
 [node name="player_bullet" type="Node2D"]
+scale = Vector2(0.8, 0.8)
 
 [node name="Area2D" type="Area2D" parent="." groups=["player_bullet"]]
 script = ExtResource("1_0ioi8")
 explosion_particle = ExtResource("2_khs1t")
 
 [node name="DefaultBullet" type="Sprite2D" parent="Area2D"]
+self_modulate = Color(3, 1, 1, 1)
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("1_uwkok")
+texture = ExtResource("3_khs1t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CapsuleShape2D_0ioi8")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Area2D"]
+visible = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ordn5")
 
 [connection signal="area_entered" from="Area2D" to="Area2D" method="_on_area_entered"]
 [connection signal="screen_exited" from="Area2D/VisibleOnScreenNotifier2D" to="Area2D" method="_on_visible_on_screen_notifier_2d_screen_exited"]

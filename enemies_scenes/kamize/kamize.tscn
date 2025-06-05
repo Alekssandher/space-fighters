@@ -86,12 +86,12 @@ background_mode = 3
 glow_enabled = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e240k"]
-radius = 33.0
+radius = 40.0
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("anim", "sprite", "damage_area")]
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.7, 0.7)
 script = ExtResource("1_tjdk2")
-base_colors = Array[Color]([Color(0, 0.251087, 0.744991, 1), Color(0, 0.251087, 0.560815, 1), Color(0, 0, 0.258915, 1)])
+base_colors = Array[Color]([Color(0, 0.251087, 0.744991, 1), Color(0, 0.251087, 0.560815, 1)])
 anim = NodePath("AnimationPlayer")
 sprite = NodePath("Area2D/Sprite2D")
 explosion_particle = ExtResource("2_nihcs")
@@ -100,7 +100,7 @@ damage_area = NodePath("DamageArea")
 [node name="Area2D" type="Area2D" parent="." groups=["enemies", "kamize"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
-self_modulate = Color(1, 0, 2.209, 1)
+self_modulate = Color(1, 0, 3.867, 1)
 position = Vector2(-3, 3)
 rotation = -1.5708
 texture = ExtResource("2_e240k")
@@ -119,7 +119,7 @@ libraries = {
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tjdk2")
 
-[node name="DamageArea" type="Area2D" parent="."]
+[node name="DamageArea" type="Area2D" parent="." groups=["damage_dealer"]]
 process_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]

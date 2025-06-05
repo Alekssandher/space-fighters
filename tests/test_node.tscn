@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://jlrnxvsyom6c"]
+[gd_scene load_steps=9 format=3 uid="uid://jlrnxvsyom6c"]
 
 [ext_resource type="Texture2D" uid="uid://bdmrmpi13ry0a" path="res://assets/beta/sprites/background/space/l0_sprite_1.png" id="1_h55fj"]
 [ext_resource type="Texture2D" uid="uid://cfitl73gl8np1" path="res://assets/beta/sprites/background/space/l1_sprite_1.png" id="2_5qo23"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://xafc1hpkn7d4" path="res://assets/beta/sprites/background/space/l4_sprite_1.png" id="5_sqryo"]
 [ext_resource type="PackedScene" uid="uid://pn0sanlvjck" path="res://player_scenes/starship/starship.tscn" id="6_h55fj"]
 [ext_resource type="PackedScene" uid="uid://crn11e1t6vyup" path="res://enemies_scenes/kamize/kamize.tscn" id="7_5qo23"]
+[ext_resource type="Script" uid="uid://ejdiungex2n3" path="res://tests/wave_handler.gd" id="8_n4lll"]
 
 [node name="test_node" type="Node2D"]
 
@@ -19,12 +20,15 @@ position = Vector2(240, 135)
 texture = ExtResource("1_h55fj")
 
 [node name="L1Sprite1" type="Sprite2D" parent="nodes/background"]
+visible = false
 texture = ExtResource("2_5qo23")
 
 [node name="L2Sprite1" type="Sprite2D" parent="nodes/background"]
+visible = false
 texture = ExtResource("3_n4lll")
 
 [node name="L3Sprite1" type="Sprite2D" parent="nodes/background"]
+visible = false
 position = Vector2(185, -63)
 texture = ExtResource("4_aosm6")
 region_enabled = true
@@ -37,9 +41,13 @@ texture = ExtResource("5_sqryo")
 region_enabled = true
 region_rect = Rect2(68, 174, 30, 36)
 
-[node name="starship" parent="nodes" instance=ExtResource("6_h55fj")]
-
 [node name="Node2D" parent="nodes" instance=ExtResource("7_5qo23")]
 
 [node name="Camera2D" type="Camera2D" parent="nodes"]
 position = Vector2(240, 135)
+
+[node name="wave_handler" type="Node2D" parent="."]
+script = ExtResource("8_n4lll")
+kamize_scene = ExtResource("7_5qo23")
+
+[node name="starship" parent="." instance=ExtResource("6_h55fj")]

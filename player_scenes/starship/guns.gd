@@ -24,7 +24,7 @@ func _process(_delta: float) -> void:
 		wait(shoot_cooldown)
 		
 func shoot() -> void:
-	anim.play("shooting")
+	#anim.play("shooting")
 	var bullet_1: Node2D = bullet_scene.instantiate();
 	var bullet_2: Node2D = bullet_scene.instantiate();
 	

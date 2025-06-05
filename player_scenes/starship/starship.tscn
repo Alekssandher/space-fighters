@@ -1,9 +1,67 @@
-[gd_scene load_steps=10 format=3 uid="uid://pn0sanlvjck"]
+[gd_scene load_steps=21 format=3 uid="uid://pn0sanlvjck"]
 
 [ext_resource type="Script" uid="uid://lr0tuk38pj6n" path="res://player_scenes/starship/starship.gd" id="1_jpp20"]
-[ext_resource type="Texture2D" uid="uid://cl75xcjxnmqiy" path="res://assets/beta/sprites/starship/starship.png" id="2_tecjh"]
+[ext_resource type="Texture2D" uid="uid://bi4mv8v0nta8y" path="res://assets/beta/sprites/starship/starship-black.png" id="2_3buhh"]
+[ext_resource type="Texture2D" uid="uid://bhicfh2ejvfsx" path="res://assets/beta/sprites/effects/smoke3.png" id="2_5iegh"]
 [ext_resource type="Script" uid="uid://bh4n1ei0jniad" path="res://player_scenes/starship/guns.gd" id="3_tecjh"]
 [ext_resource type="PackedScene" uid="uid://k0e1be0j8xio" path="res://player_scenes/starship/bullets/player_bullet.tscn" id="4_vnpis"]
+[ext_resource type="Script" uid="uid://cv5dkidu01mt4" path="res://player_scenes/starship/signal_handler.gd" id="5_x2jci"]
+[ext_resource type="PackedScene" uid="uid://dtwhe8ex5c484" path="res://player_scenes/starship/bullets/bullet_explosion.tscn" id="6_3buhh"]
+
+[sub_resource type="Gradient" id="Gradient_5iegh"]
+offsets = PackedFloat32Array(0, 0.97541)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jfmqw"]
+gradient = SubResource("Gradient_5iegh")
+
+[sub_resource type="Curve" id="Curve_jfmqw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.889706, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xo5qm"]
+curve = SubResource("Curve_jfmqw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5edoo"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(0, 1, 0)
+angle_min = -88.6
+angle_max = 110.8
+direction = Vector3(0, 1, 0)
+spread = 5.0
+initial_velocity_min = 5.0
+initial_velocity_max = 75.0
+gravity = Vector3(0, 60, 0)
+scale_min = 0.8
+scale_curve = SubResource("CurveTexture_xo5qm")
+color_ramp = SubResource("GradientTexture1D_jfmqw")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3buhh"]
+atlas = ExtResource("2_3buhh")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5iegh"]
+atlas = ExtResource("2_3buhh")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jfmqw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3buhh")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5iegh")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5qo23"]
 radius = 5.0
@@ -62,26 +120,31 @@ _data = {
 &"shooting": SubResource("Animation_tecjh")
 }
 
-[node name="starship" type="Node2D" node_paths=PackedStringArray("sprite") groups=["player"]]
+[node name="starship" type="Node2D" node_paths=PackedStringArray("animated_sprite") groups=["player"]]
 script = ExtResource("1_jpp20")
-sprite = NodePath("Area2D/Starship")
+animated_sprite = NodePath("Area2D/Starship")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 6)
+texture = ExtResource("2_5iegh")
+lifetime = 0.5
+speed_scale = 1.5
+process_material = SubResource("ParticleProcessMaterial_5edoo")
 
 [node name="Area2D" type="Area2D" parent="." groups=["player"]]
 
-[node name="Starship" type="Sprite2D" parent="Area2D"]
+[node name="Starship" type="AnimatedSprite2D" parent="Area2D"]
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("2_tecjh")
-hframes = 2
-vframes = 3
-frame = 1
+sprite_frames = SubResource("SpriteFrames_jfmqw")
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CapsuleShape2D_5qo23")
 
-[node name="guns" type="Node2D" parent="Area2D" node_paths=PackedStringArray("sprites", "anim", "blaster_1", "blaster_2")]
+[node name="guns" type="Node2D" parent="Area2D" node_paths=PackedStringArray("anim", "blaster_1", "blaster_2")]
 script = ExtResource("3_tecjh")
 shoot_cooldown = 0.35
-sprites = NodePath("../Starship")
 anim = NodePath("../AnimationPlayer")
 bullet_scene = ExtResource("4_vnpis")
 blaster_1 = NodePath("blaster_1")
@@ -97,3 +160,8 @@ position = Vector2(9.2, -4)
 libraries = {
 &"": SubResource("AnimationLibrary_x2jci")
 }
+
+[node name="SignalHandler" type="Node2D" parent="." node_paths=PackedStringArray("animated_sprite")]
+script = ExtResource("5_x2jci")
+animated_sprite = NodePath("../Area2D/Starship")
+explosion_particles = ExtResource("6_3buhh")

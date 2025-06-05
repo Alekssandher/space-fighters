@@ -11,7 +11,13 @@ config_version=5
 [application]
 
 config/name="space-fighters"
+run/main_scene="uid://jlrnxvsyom6c"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+
+[autoload]
+
+GlobalSignals="*res://globals/GlobalSignals.gd"
+PlayerStatus="*res://globals/PlayerStatus.gd"
 
 [debug]
 
@@ -51,6 +57,8 @@ player_bullet="Player bullet"
 enemies=""
 player=""
 kamize=""
+damage_area=""
+damage_dealer=""
 
 [input]
 
