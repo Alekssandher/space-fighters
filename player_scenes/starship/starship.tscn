@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://pn0sanlvjck"]
+[gd_scene load_steps=23 format=3 uid="uid://pn0sanlvjck"]
 
 [ext_resource type="Script" uid="uid://lr0tuk38pj6n" path="res://player_scenes/starship/starship.gd" id="1_jpp20"]
 [ext_resource type="Texture2D" uid="uid://bi4mv8v0nta8y" path="res://assets/beta/sprites/starship/starship-black.png" id="2_3buhh"]
@@ -9,11 +9,17 @@
 [ext_resource type="PackedScene" uid="uid://dtwhe8ex5c484" path="res://player_scenes/starship/bullets/bullet_explosion.tscn" id="6_3buhh"]
 
 [sub_resource type="Gradient" id="Gradient_5iegh"]
-offsets = PackedFloat32Array(0, 0.97541)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0.0181818, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_jfmqw"]
 gradient = SubResource("Gradient_5iegh")
+
+[sub_resource type="Curve" id="Curve_5iegh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jfmqw"]
+curve = SubResource("Curve_5iegh")
 
 [sub_resource type="Curve" id="Curve_jfmqw"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.889706, 0), 0.0, 0.0, 0, 0]
@@ -24,7 +30,6 @@ curve = SubResource("Curve_jfmqw")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5edoo"]
 particle_flag_disable_z = true
-emission_shape_scale = Vector3(0, 1, 0)
 angle_min = -88.6
 angle_max = 110.8
 direction = Vector3(0, 1, 0)
@@ -35,6 +40,7 @@ gravity = Vector3(0, 60, 0)
 scale_min = 0.8
 scale_curve = SubResource("CurveTexture_xo5qm")
 color_ramp = SubResource("GradientTexture1D_jfmqw")
+emission_curve = SubResource("CurveTexture_jfmqw")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3buhh"]
 atlas = ExtResource("2_3buhh")
@@ -65,7 +71,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5qo23"]
 radius = 5.0
-height = 16.0
+height = 14.0
 
 [sub_resource type="Animation" id="Animation_vnpis"]
 length = 0.001

@@ -18,6 +18,7 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 
 GlobalSignals="*res://globals/GlobalSignals.gd"
 PlayerStatus="*res://globals/PlayerStatus.gd"
+GlobalPosCalculator="*res://globals/PosCalculator.gd"
 
 [debug]
 

@@ -10,39 +10,26 @@ var _tween3: Tween
 @export var damage: int = 1
 
 @export_category("Nodes")
-@export var anim: AnimationPlayer
 @export var sprite: Sprite2D
 @export var explosion_particle: PackedScene
 @export var damage_area: Area2D
 
+var calc: GlobalPosCalculator = GlobalPosCalculator
 func _ready() -> void:
 
-	anim.play("going_slow")
 	tween = get_tree().create_tween()
 	
 	if launch_point == Vector2(0, 0):
-		launch_point = calculate_launch_point()
+		launch_point = calc.calculate_launch_point()
 	look_at(launch_point)
-	tween.tween_property(self, "global_position", launch_point, 3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self, "global_position", launch_point, 2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
-	anim.stop()
+	
 	sprite.frame = 0
 	
-	print("calld point to player")
+	print("called point to player")
 	point_to_player()
 	
-	pass
-	
-func _process(_delta: float) -> void:
-	pass
-	
-func calculate_launch_point() -> Vector2:
-	var screen_size: Vector2 = get_viewport().get_visible_rect().size
-	var random_x: float = randf_range(0, screen_size.x)
-	
-	var random_y: float = randf_range(0, screen_size.y * 0.2)
-	
-	return Vector2(random_x, random_y)
 
 func point_to_player() -> void:
 	var _tween: Tween = get_tree().create_tween()
@@ -52,20 +39,14 @@ func point_to_player() -> void:
 	var dir:  Vector2 = last_player_pos - self.global_position
 	var target_angle: float = dir.angle() 
 
-	_tween.tween_property(self, "rotation", target_angle, 1.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_tween.tween_property(self, "rotation", target_angle, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await _tween.finished
 	
-	anim.play("start_going_fast")
-	
 	var _tween_2: Tween = get_tree().create_tween()
-	_tween_2.tween_property(self, "global_position", last_player_pos, 0.7).set_trans(Tween.TRANS_SINE)
+	_tween_2.tween_property(self, "global_position", last_player_pos, 0.5).set_trans(Tween.TRANS_SINE)
 	
 	await _tween_2.finished
 	explode()
-
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	if anim_name == "start_going_fast":
-		anim.play("going_fast")
 
 func explode(explosion_scale: Vector2 = Vector2(0.55, 0.55)) -> void:
 	
@@ -74,14 +55,23 @@ func explode(explosion_scale: Vector2 = Vector2(0.55, 0.55)) -> void:
 	explosion_particle_instance.rotation = global_rotation
 	
 	explosion_particle_instance.scale = explosion_scale
-	explosion_particle_instance.self_modulate = base_colors[randi_range(0, base_colors.size() - 1 )]
-	explosion_particle_instance.modulate = Color(1, 1, 1, 1)
+	
 	explosion_particle_instance.emitting = true
+	var mat: ParticleProcessMaterial = explosion_particle_instance.process_material
+	
+	var gradient: Gradient = Gradient.new()
+	gradient.add_point(0.0, base_colors[0])
+	gradient.add_point(1.0, base_colors[1])
+	
+	var gradient_texture : GradientTexture1D = GradientTexture1D.new()
+	gradient_texture.gradient = gradient
+	mat.color_ramp = gradient_texture
+	
+	
 	get_tree().current_scene.add_child(explosion_particle_instance)
 	
 	apply_damage()
 	queue_free()
-	pass
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:

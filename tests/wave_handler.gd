@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var kamize_scene: PackedScene
-
+@export var cooldown: float
 var screen_size: Vector2
 
 func _ready() -> void:
@@ -10,7 +10,7 @@ func _ready() -> void:
 	
 func spawn_loop() -> void:
 	while true:
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(cooldown).timeout
 		spawn_kamize(calc_spawn())
 	
 func calc_spawn() -> Vector2:

@@ -7,7 +7,6 @@ extends Node2D
 
 @export var bullet_scene: PackedScene
 
-
 @export var blaster_1: Marker2D
 @export var blaster_2: Marker2D
 

@@ -17,7 +17,7 @@ func _on_player_damaged(damage: int) -> void:
 		tween.kill()
 		
 	tween = get_tree().create_tween()
-	tween.tween_property(animated_sprite, "modulate", Color(1, 1, 1, 0.4), 0.1).set_trans(Tween.TRANS_LINEAR)
+	tween.tween_property(animated_sprite, "modulate", Color(1.5, 1.5, 1.5, 0.4), 0.1).set_trans(Tween.TRANS_LINEAR)
 	tween.tween_property(animated_sprite, "modulate", Color(1, 1, 1, 1), 0.1).set_trans(Tween.TRANS_LINEAR)
 
 func explode() -> void:
@@ -32,4 +32,7 @@ func explode() -> void:
 	get_tree().current_scene.add_child(explosion_instance)
 	
 	get_parent().queue_free()
+	
+	await get_tree().create_timer(0.5).timeout
+	
 	
