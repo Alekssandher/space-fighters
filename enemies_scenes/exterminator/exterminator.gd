@@ -1,10 +1,5 @@
 extends Node2D
 
-@export_category("Blasters")
-@export var blasters: Array[Marker2D]
-@export var fire_rate: float
-@export var bullet_scene: PackedScene
-
 @export_category("Cordinates")
 @export var spawn_pos: Vector2 = Vector2(0, -150)
 @export var launch_pos: Vector2
@@ -12,18 +7,24 @@ extends Node2D
 
 @export_category("Outro")
 @export var animated_sprite: AnimatedSprite2D
-@export var timer: Timer
+
 
 enum State {
 	ENTERING, 
 	IDLE,
 	MOVING,
+	WAITING,
 	DEAD
 }
 
 var screen_size: Vector2
 var current_state: State
 var tween: Tween
+
+var hail_num: int = 0
+
+signal attack
+signal stop_attack
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size;
@@ -33,25 +34,16 @@ func _ready() -> void:
 	
 	change_state(State.ENTERING)
 
-func _process(delta: float) -> void:
-	match current_state:
-		State.ENTERING:
-			pass
-		State.MOVING:
-			move_laterally(delta)
-		State.DEAD:
-			queue_free()
-			
 func change_state(new_state: State) -> void:
 	current_state = new_state
 	
 	match new_state:
 		State.ENTERING:
 			enter_scene()
-		State.IDLE:
-			pause()
+		State.WAITING:
+			wait()
 		State.MOVING:
-			start_shooting()
+			move_laterally()
 		State.DEAD:
 			explode()
 
@@ -61,22 +53,40 @@ func enter_scene() -> void:
 	await tween.finished
 	await get_tree().create_timer(0.5).timeout
 	
-	current_state = State.MOVING
+	tween.kill()
+	
+	change_state(State.MOVING)
 	pass
 
-func move_laterally(_delta: float) -> void:
+func move_laterally() -> void:
+	tween = get_tree().create_tween()
+	
+	var target_x: float 
+	var target_pos: Vector2 
+	
 	if (screen_size / 2) > global_position:
-		print("left side")
+		target_x = global_position.x - screen_size.x * -0.8
+		target_pos = Vector2(target_x, global_position.y)
+		tween.tween_property(self, "global_position", target_pos, 3)
+		animated_sprite.play("move")
+		animated_sprite.flip_h = false
 	else:
-		print("right side")
-	pass
-func pause() -> void:
-	pass
+		target_x = global_position.x - screen_size.x * 0.8
+		target_pos = Vector2(target_x, global_position.y)
+		tween.tween_property(self, "global_position", target_pos, 3)
+		animated_sprite.play("move")
+		animated_sprite.flip_h = true
+		
+	hail_num += 1 
+	attack.emit(hail_num)
 	
-func start_shooting() -> void:
+	await tween.finished
 	
-	print("moving")
+	stop_attack.emit()
+	change_state(State.WAITING)
 	pass
-	
+func wait() -> void:
+	change_state(State.MOVING)
+
 func explode() -> void:
 	pass

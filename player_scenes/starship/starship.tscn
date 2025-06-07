@@ -9,9 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://dtwhe8ex5c484" path="res://player_scenes/starship/bullets/bullet_explosion.tscn" id="6_3buhh"]
 
 [sub_resource type="Gradient" id="Gradient_5iegh"]
-offsets = PackedFloat32Array(0.0181818, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_jfmqw"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5iegh"]
 gradient = SubResource("Gradient_5iegh")
 
 [sub_resource type="Curve" id="Curve_5iegh"]
@@ -35,11 +34,12 @@ angle_max = 110.8
 direction = Vector3(0, 1, 0)
 spread = 5.0
 initial_velocity_min = 5.0
-initial_velocity_max = 75.0
+initial_velocity_max = 50.0
 gravity = Vector3(0, 60, 0)
 scale_min = 0.8
+scale_max = 1.3
 scale_curve = SubResource("CurveTexture_xo5qm")
-color_ramp = SubResource("GradientTexture1D_jfmqw")
+color_ramp = SubResource("GradientTexture1D_5iegh")
 emission_curve = SubResource("CurveTexture_jfmqw")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3buhh"]

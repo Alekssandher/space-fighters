@@ -13,6 +13,7 @@ var _tween3: Tween
 @export var sprite: Sprite2D
 @export var explosion_particle: PackedScene
 @export var damage_area: Area2D
+@export var gpu_part: GPUParticles2D
 
 var calc: GlobalPosCalculator = GlobalPosCalculator
 func _ready() -> void:
@@ -27,7 +28,7 @@ func _ready() -> void:
 	
 	sprite.frame = 0
 	
-	print("called point to player")
+	tween.kill()
 	point_to_player()
 	
 
@@ -35,6 +36,9 @@ func point_to_player() -> void:
 	var _tween: Tween = get_tree().create_tween()
 	
 	var player: Node2D = get_tree().get_first_node_in_group("player")
+	
+	if(!player): 
+		return
 	var last_player_pos: Vector2 = player.global_position
 	var dir:  Vector2 = last_player_pos - self.global_position
 	var target_angle: float = dir.angle() 
@@ -43,7 +47,9 @@ func point_to_player() -> void:
 	await _tween.finished
 	
 	var _tween_2: Tween = get_tree().create_tween()
+	
 	_tween_2.tween_property(self, "global_position", last_player_pos, 0.5).set_trans(Tween.TRANS_SINE)
+	gpu_part.scale = gpu_part.scale + Vector2(0.4, 0)
 	
 	await _tween_2.finished
 	explode()

@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3i07xjddleij"]
+[gd_scene load_steps=8 format=3 uid="uid://c3i07xjddleij"]
 
 [ext_resource type="Script" uid="uid://ubfa1px7bysg" path="res://enemies_scenes/exterminator/exterminator.gd" id="1_8qbwu"]
 [ext_resource type="Texture2D" uid="uid://bga22mhssiwgb" path="res://assets/beta/sprites/enemies/exterminator.png" id="1_kq7nn"]
+[ext_resource type="Script" uid="uid://entr05cxaj6f" path="res://enemies_scenes/exterminator/blasters.gd" id="3_tl5mk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8qbwu"]
 atlas = ExtResource("1_kq7nn")
@@ -34,30 +35,37 @@ animations = [{
 background_mode = 3
 glow_enabled = true
 
-[node name="exterminator" type="Node2D" node_paths=PackedStringArray("blasters")]
+[node name="exterminator" type="Node2D" node_paths=PackedStringArray("animated_sprite")]
 scale = Vector2(0.8, 0.8)
 script = ExtResource("1_8qbwu")
-blasters = [NodePath("blasters/explosives"), NodePath("blasters/explosives2"), NodePath("blasters/normal"), NodePath("blasters/normal2")]
-spawn_pos = Vector2(360, -150)
+spawn_pos = Vector2(50, -150)
+animated_sprite = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(3.315, 3.867, 4.972, 1)
 sprite_frames = SubResource("SpriteFrames_gxrss")
-animation = &"idle"
+animation = &"move"
 
-[node name="blasters" type="Node2D" parent="."]
+[node name="blasters" type="Node2D" parent="." node_paths=PackedStringArray("blasters", "ext_node", "timer")]
+position = Vector2(3.57628e-07, 0)
+script = ExtResource("3_tl5mk")
+blasters = [NodePath("explosives"), NodePath("explosives2"), NodePath("normal"), NodePath("normal2")]
+ext_node = NodePath("..")
+timer = NodePath("Timer")
 
 [node name="explosives" type="Marker2D" parent="blasters"]
-position = Vector2(-14.5, 6)
+position = Vector2(-11.5, 6)
 
 [node name="explosives2" type="Marker2D" parent="blasters"]
-position = Vector2(14.5, 6)
+position = Vector2(10.5, 6)
 
 [node name="normal" type="Marker2D" parent="blasters"]
-position = Vector2(-9.5, 11)
+position = Vector2(-7.5, 11)
 
 [node name="normal2" type="Marker2D" parent="blasters"]
-position = Vector2(9.5, 11)
+position = Vector2(7.5, 11)
+
+[node name="Timer" type="Timer" parent="blasters"]
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
