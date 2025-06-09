@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjr7p2j2dv31y"]
+
+[ext_resource type="Texture2D" uid="uid://c45g4bn7w3yv8" path="res://assets/beta/sprites/bullets/exterminator_bulet.png" id="1_roh5q"]
+[ext_resource type="Script" uid="uid://w3iqy60lxcma" path="res://enemies_scenes/exterminator/exterminator_bullet.gd" id="1_v4a84"]
+[ext_resource type="PackedScene" uid="uid://dtwhe8ex5c484" path="res://player_scenes/starship/bullets/bullet_explosion.tscn" id="2_8ihnd"]
+
+[sub_resource type="Environment" id="Environment_v4a84"]
+background_mode = 3
+glow_enabled = true
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ihnd"]
+radius = 2.0
+height = 8.0
+
+[node name="exterminator_bullet" type="Node2D" node_paths=PackedStringArray("sprite", "damage_area")]
+scale = Vector2(0.6, 0.6)
+script = ExtResource("1_v4a84")
+explosion_particle = ExtResource("2_8ihnd")
+sprite = NodePath("Sprite2D")
+damage_area = NodePath("Area2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(2.21, 1.729, 7.704, 1)
+texture = ExtResource("1_roh5q")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_v4a84")
+
+[node name="Area2D" type="Area2D" parent="." groups=["damage_area"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_8ihnd")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(0.5, 0.5)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

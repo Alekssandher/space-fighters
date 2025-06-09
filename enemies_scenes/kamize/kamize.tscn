@@ -63,7 +63,6 @@ gpu_part = NodePath("GPUParticles2D")
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 texture_filter = 1
 position = Vector2(-12.8574, 0)
-scale = Vector2(1, 1)
 texture = ExtResource("3_nihcs")
 lifetime = 0.5
 speed_scale = 1.5

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://jlrnxvsyom6c"]
+[gd_scene load_steps=13 format=3 uid="uid://jlrnxvsyom6c"]
 
 [ext_resource type="Texture2D" uid="uid://bdmrmpi13ry0a" path="res://assets/beta/sprites/background/space/l0_sprite_1.png" id="1_h55fj"]
 [ext_resource type="Texture2D" uid="uid://cfitl73gl8np1" path="res://assets/beta/sprites/background/space/l1_sprite_1.png" id="2_5qo23"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://crn11e1t6vyup" path="res://enemies_scenes/kamize/kamize.tscn" id="7_5qo23"]
 [ext_resource type="Script" uid="uid://ejdiungex2n3" path="res://tests/wave_handler.gd" id="8_n4lll"]
 [ext_resource type="Shader" uid="uid://tx0o3x2i02jx" path="res://shaders/light_beam.gdshader" id="10_sqryo"]
+[ext_resource type="PackedScene" uid="uid://c3i07xjddleij" path="res://enemies_scenes/exterminator/exterminator.tscn" id="11_xkk86"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xkk86"]
 shader = ExtResource("10_sqryo")
@@ -75,6 +76,8 @@ position = Vector2(240, 135)
 [node name="wave_handler" type="Node2D" parent="."]
 script = ExtResource("8_n4lll")
 kamize_scene = ExtResource("7_5qo23")
-cooldown = 0.5
+cooldown = 3.0
 
 [node name="starship" parent="." instance=ExtResource("6_h55fj")]
+
+[node name="exterminator" parent="." instance=ExtResource("11_xkk86")]

@@ -5,8 +5,11 @@ extends Node2D
 @export var fire_rate: float
 @export var bullet_scene: PackedScene
 
+@export_category("Outro")
 @export var ext_node: Node2D
-@export var timer: Timer
+@export var normal_timer: Timer
+@export var explosives_timer: Timer
+
 
 enum State {
 	SHOOTING, 
@@ -20,7 +23,8 @@ func _ready() -> void:
 	ext_node.connect("attack", Callable(self, "_on_moving_started"))
 	
 
-func _process(_delta: float) -> void:
+func change_state(new_state: State) -> void:
+	current_state = new_state
 	match  current_state:
 		State.WAITING:
 			pass
@@ -29,6 +33,7 @@ func _process(_delta: float) -> void:
 			
 func _on_moving_started(_hail_num: int) -> void:
 	hail_num = _hail_num
+	change_state(State.SHOOTING)
 
 func shoot() -> void:
 	if (hail_num % 2) > 0:
@@ -37,7 +42,26 @@ func shoot() -> void:
 		shoot_explosive()
 	
 func shoot_normal() -> void:
+	add_bullet(bullet_scene, blasters[0].global_position)
+	add_bullet(bullet_scene, blasters[1].global_position)
+	for i: int in range(5):
+		
+		normal_timer.start()
+		await normal_timer.timeout
+		print("shoot_normal")
+		add_bullet(bullet_scene, blasters[0].global_position)
+		add_bullet(bullet_scene, blasters[1].global_position)
 	pass
 	
 func shoot_explosive() -> void:
+	for i: int in range(14):
+		
+		explosives_timer.start()
+		await explosives_timer.timeout
+		print("shoot_explosive")
 	pass
+	
+func add_bullet(_bullet_scene: PackedScene, _blaster_pos: Vector2) -> void:
+	var bullet: Node2D = _bullet_scene.instantiate()
+	bullet.global_position = _blaster_pos
+	get_tree().current_scene.add_child(bullet)
