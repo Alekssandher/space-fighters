@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ci63i5feqmky3"
-path="res://.godot/imported/explosive_children.png-3ddba8bb862e71e70fc6276b8b923bf8.ctex"
+path="res://.godot/imported/shard.png-169a76ad53f2a19dc30e5c62d0ad69f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/beta/sprites/bullets/explosive_children.png"
-dest_files=["res://.godot/imported/explosive_children.png-3ddba8bb862e71e70fc6276b8b923bf8.ctex"]
+source_file="res://assets/beta/sprites/bullets/shard.png"
+dest_files=["res://.godot/imported/shard.png-169a76ad53f2a19dc30e5c62d0ad69f6.ctex"]
 
 [params]
 

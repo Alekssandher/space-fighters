@@ -4,6 +4,7 @@ extends Node2D
 @export var blasters: Array[Marker2D]
 @export var fire_rate: float
 @export var bullet_scene: PackedScene
+@export var explosive_scene: PackedScene
 
 @export_category("Outro")
 @export var ext_node: Node2D
@@ -54,10 +55,15 @@ func shoot_normal() -> void:
 	pass
 	
 func shoot_explosive() -> void:
-	for i: int in range(14):
+	add_bullet(explosive_scene, blasters[2].global_position)
+	add_bullet(explosive_scene, blasters[3].global_position)
+	
+	for i: int in range(4):
 		
 		explosives_timer.start()
 		await explosives_timer.timeout
+		add_bullet(explosive_scene, blasters[2].global_position)
+		add_bullet(explosive_scene, blasters[3].global_position)
 		print("shoot_explosive")
 	pass
 	

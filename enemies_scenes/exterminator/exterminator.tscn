@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3i07xjddleij"]
+[gd_scene load_steps=10 format=3 uid="uid://c3i07xjddleij"]
 
 [ext_resource type="Script" uid="uid://ubfa1px7bysg" path="res://enemies_scenes/exterminator/exterminator.gd" id="1_8qbwu"]
 [ext_resource type="Texture2D" uid="uid://bga22mhssiwgb" path="res://assets/beta/sprites/enemies/exterminator.png" id="1_kq7nn"]
 [ext_resource type="Script" uid="uid://entr05cxaj6f" path="res://enemies_scenes/exterminator/blasters.gd" id="3_tl5mk"]
 [ext_resource type="PackedScene" uid="uid://bjr7p2j2dv31y" path="res://enemies_scenes/exterminator/exterminator_bullet.tscn" id="4_j2eca"]
+[ext_resource type="PackedScene" uid="uid://dcu80yf4kkqj0" path="res://enemies_scenes/exterminator/exterminator_exp_bullet.tscn" id="5_2jsn0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8qbwu"]
 atlas = ExtResource("1_kq7nn")
@@ -52,6 +53,7 @@ position = Vector2(3.57628e-07, 0)
 script = ExtResource("3_tl5mk")
 blasters = [NodePath("explosives"), NodePath("explosives2"), NodePath("normal"), NodePath("normal2")]
 bullet_scene = ExtResource("4_j2eca")
+explosive_scene = ExtResource("5_2jsn0")
 ext_node = NodePath("..")
 normal_timer = NodePath("normal_timer")
 explosives_timer = NodePath("explosives_timer")
@@ -73,7 +75,6 @@ wait_time = 0.5
 one_shot = true
 
 [node name="explosives_timer" type="Timer" parent="blasters"]
-wait_time = 0.25
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

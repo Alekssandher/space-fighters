@@ -1,7 +1,24 @@
-[gd_scene load_steps=7 format=3 uid="uid://dcu80yf4kkqj0"]
+[gd_scene load_steps=9 format=3 uid="uid://dcu80yf4kkqj0"]
 
 [ext_resource type="Script" uid="uid://2mcabcmmj8pu" path="res://enemies_scenes/exterminator/exterminator_exp_bullet.gd" id="1_mqnp7"]
 [ext_resource type="Texture2D" uid="uid://c7m5exw33h7bi" path="res://assets/beta/sprites/bullets/explosive.png" id="1_rqb1k"]
+[ext_resource type="PackedScene" uid="uid://dtwhe8ex5c484" path="res://player_scenes/starship/bullets/bullet_explosion.tscn" id="2_38kwa"]
+[ext_resource type="PackedScene" uid="uid://dh7lynnrp2t6n" path="res://enemies_scenes/exterminator/explosive_shard.tscn" id="3_38kwa"]
+
+[sub_resource type="Animation" id="Animation_38kwa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_skb6u"]
 resource_name = "rotate"
@@ -20,21 +37,6 @@ tracks/0/keys = {
 "values": [0.0, 6.28319]
 }
 
-[sub_resource type="Animation" id="Animation_38kwa"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0lh00"]
 _data = {
 &"RESET": SubResource("Animation_38kwa"),
@@ -45,8 +47,11 @@ _data = {
 radius = 4.0
 
 [node name="exterminator_exp_bullet" type="Node2D" node_paths=PackedStringArray("anim")]
+scale = Vector2(0.8, 0.8)
 script = ExtResource("1_mqnp7")
 anim = NodePath("AnimationPlayer")
+explosion_particle = ExtResource("2_38kwa")
+shard_scene = ExtResource("3_38kwa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_rqb1k")
