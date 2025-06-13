@@ -48,7 +48,7 @@ modulate = Color(3.315, 3.867, 4.972, 1)
 sprite_frames = SubResource("SpriteFrames_gxrss")
 animation = &"idle"
 
-[node name="blasters" type="Node2D" parent="." node_paths=PackedStringArray("blasters", "ext_node", "normal_timer", "explosives_timer")]
+[node name="blasters" type="Node2D" parent="." node_paths=PackedStringArray("blasters", "ext_node", "normal_timer")]
 position = Vector2(3.57628e-07, 0)
 script = ExtResource("3_tl5mk")
 blasters = [NodePath("explosives"), NodePath("explosives2"), NodePath("normal"), NodePath("normal2")]
@@ -56,7 +56,7 @@ bullet_scene = ExtResource("4_j2eca")
 explosive_scene = ExtResource("5_2jsn0")
 ext_node = NodePath("..")
 normal_timer = NodePath("normal_timer")
-explosives_timer = NodePath("explosives_timer")
+explosives_rate = 0.85
 
 [node name="explosives" type="Marker2D" parent="blasters"]
 position = Vector2(-11.5, 6)

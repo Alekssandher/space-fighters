@@ -46,12 +46,14 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_mqnp7"]
 radius = 4.0
 
-[node name="exterminator_exp_bullet" type="Node2D" node_paths=PackedStringArray("anim")]
+[node name="exterminator_exp_bullet" type="Node2D" node_paths=PackedStringArray("anim", "sprite")]
 scale = Vector2(0.8, 0.8)
 script = ExtResource("1_mqnp7")
 anim = NodePath("AnimationPlayer")
-explosion_particle = ExtResource("2_38kwa")
 shard_scene = ExtResource("3_38kwa")
+explosion_particle = ExtResource("2_38kwa")
+bullet_damage = 4
+sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_rqb1k")
@@ -67,3 +69,6 @@ libraries = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_mqnp7")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

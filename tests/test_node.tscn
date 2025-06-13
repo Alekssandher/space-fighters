@@ -68,8 +68,6 @@ offset_right = 480.0
 offset_bottom = 270.0
 grow_horizontal = 0
 
-[node name="Node2D" parent="nodes" instance=ExtResource("7_5qo23")]
-
 [node name="Camera2D" type="Camera2D" parent="nodes"]
 position = Vector2(240, 135)
 
@@ -81,3 +79,6 @@ cooldown = 3.0
 [node name="starship" parent="." instance=ExtResource("6_h55fj")]
 
 [node name="exterminator" parent="." instance=ExtResource("11_xkk86")]
+
+[node name="exterminator2" parent="." instance=ExtResource("11_xkk86")]
+spawn_pos = Vector2(450, -150)

@@ -12,13 +12,13 @@ glow_enabled = true
 radius = 2.0
 height = 8.0
 
-[node name="exterminator_bullet" type="Node2D" node_paths=PackedStringArray("sprite", "damage_area")]
+[node name="exterminator_bullet" type="Node2D" node_paths=PackedStringArray("damage_area", "sprite")]
 modulate = Color(7.182, 43.647, 100, 1)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("1_v4a84")
+damage_area = NodePath("Area2D")
 explosion_particle = ExtResource("2_8ihnd")
 sprite = NodePath("Sprite2D")
-damage_area = NodePath("Area2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(2.21, 1.729, 7.704, 1)
@@ -28,13 +28,11 @@ texture = ExtResource("1_roh5q")
 environment = SubResource("Environment_v4a84")
 
 [node name="Area2D" type="Area2D" parent="." groups=["damage_area"]]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CapsuleShape2D_8ihnd")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-visible = false
 scale = Vector2(0.5, 0.5)
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

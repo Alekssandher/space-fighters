@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://y7tg118gf2wl"]
+[gd_scene load_steps=3 format=3 uid="uid://y7tg118gf2wl"]
 
 [ext_resource type="PackedScene" uid="uid://dcu80yf4kkqj0" path="res://enemies_scenes/exterminator/exterminator_exp_bullet.tscn" id="1_stypt"]
+[ext_resource type="PackedScene" uid="uid://c3i07xjddleij" path="res://enemies_scenes/exterminator/exterminator.tscn" id="2_rtd5x"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="exterminator_exp_bullet" parent="." instance=ExtResource("1_stypt")]
 position = Vector2(211, 153)
+
+[node name="exterminator" parent="." instance=ExtResource("2_rtd5x")]

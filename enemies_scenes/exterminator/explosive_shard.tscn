@@ -1,10 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://dh7lynnrp2t6n"]
+[gd_scene load_steps=8 format=3 uid="uid://dh7lynnrp2t6n"]
 
 [ext_resource type="Script" uid="uid://do2pmw3ehnaro" path="res://enemies_scenes/exterminator/explosive_shard.gd" id="1_301iy"]
+[ext_resource type="PackedScene" uid="uid://dtwhe8ex5c484" path="res://player_scenes/starship/bullets/bullet_explosion.tscn" id="2_0l0et"]
 [ext_resource type="Texture2D" uid="uid://ci63i5feqmky3" path="res://assets/beta/sprites/bullets/shard.png" id="2_p16hx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0l0et"]
 radius = 2.5
+
+[sub_resource type="Animation" id="Animation_p16hx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_301iy"]
 resource_name = "rotate"
@@ -23,30 +39,17 @@ tracks/0/keys = {
 "values": [0.0, 6.28319]
 }
 
-[sub_resource type="Animation" id="Animation_p16hx"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0l0et"]
 _data = {
 &"RESET": SubResource("Animation_p16hx"),
 &"rotate": SubResource("Animation_301iy")
 }
 
-[node name="explosive_shard" type="Node2D" node_paths=PackedStringArray("anim")]
+[node name="explosive_shard" type="Node2D" node_paths=PackedStringArray("anim", "sprite")]
 script = ExtResource("1_301iy")
 anim = NodePath("AnimationPlayer")
+explosion_particle = ExtResource("2_0l0et")
+sprite = NodePath("Sprite2D")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2(0.4, 0.4)
@@ -65,3 +68,4 @@ libraries = {
 }
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

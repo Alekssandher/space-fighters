@@ -6,7 +6,7 @@ var screen_size: Vector2
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size;
-	spawn_loop()
+	#spawn_loop()
 	
 func spawn_loop() -> void:
 	while true:

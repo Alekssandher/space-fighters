@@ -77,7 +77,7 @@ func move_laterally() -> void:
 		animated_sprite.play("move")
 		animated_sprite.flip_h = true
 		
-	hail_num += 1 
+	hail_num = !hail_num 
 	attack.emit(hail_num)
 	
 	await tween.finished

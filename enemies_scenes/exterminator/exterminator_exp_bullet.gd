@@ -1,8 +1,7 @@
-extends Node2D
+extends Bullet
 
 @export var anim: AnimationPlayer
-@export var speed: float = 70
-@export var explosion_particle: PackedScene
+@export var speed: float = 130
 @export var shards_num: int = 8
 
 @export var shard_scene: PackedScene

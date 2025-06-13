@@ -9,7 +9,7 @@ extends Node2D
 @export_category("Outro")
 @export var ext_node: Node2D
 @export var normal_timer: Timer
-@export var explosives_timer: Timer
+@export var explosives_rate: float
 
 
 enum State {
@@ -60,8 +60,7 @@ func shoot_explosive() -> void:
 	
 	for i: int in range(4):
 		
-		explosives_timer.start()
-		await explosives_timer.timeout
+		await get_tree().create_timer(randf_range((explosives_rate * 0.8), explosives_rate)).timeout
 		add_bullet(explosive_scene, blasters[2].global_position)
 		add_bullet(explosive_scene, blasters[3].global_position)
 		print("shoot_explosive")
